@@ -1,27 +1,32 @@
 import 'package:flutter/material.dart';
 
-Icon iconduiyou() => Icon(
+Icon iconDuiyou({num size = 18, Color color}) => Icon(
   IconData(0xe65d, fontFamily: 'iconfont'),
-  size: 18,
+  size: size,
+  color: color,
 );
 
-Icon iconfankui1() => Icon(
+Icon iconFankui1({num size = 18, Color color}) => Icon(
   IconData(0xe634, fontFamily: 'iconfont'),
-  size: 18,
+  size: size,
+  color: color,
 );
 
-Icon iconleft() => Icon(
+Icon iconLeft({num size = 18, Color color}) => Icon(
   IconData(0xe600, fontFamily: 'iconfont'),
-  size: 18,
+  size: size,
+  color: color,
 );
 
-Icon iconright() => Icon(
+Icon iconRight({num size = 18, Color color}) => Icon(
   IconData(0xe601, fontFamily: 'iconfont'),
-  size: 18,
+  size: size,
+  color: color,
 );
 
-Icon iconweixin() => Icon(
+Icon iconWeixin({num size = 18, Color color}) => Icon(
   IconData(0xe629, fontFamily: 'iconfont'),
-  size: 18,
+  size: size,
+  color: color,
 );
 

@@ -4,20 +4,25 @@ import 'package:html/parser.dart' show parse;
 class IconfontDart {
   String dir;
   String buildDir;
+  String toHumpStr;
 
   /// 根据iconfont自动生成对应的dart文件
   /// 
   /// @dir: iconfont中 demo_index.html目录
   /// 
   /// @buildDir: 生成dart文件路径
-  IconfontDart(String dir, String buildDir) {
+  /// 
+  /// @toHumpStr: 将classname替换为驼峰命名  eg: icon-name 转换 iconName 
+  /// eg: icon-name => iconName  toHumpStr传入 '-'
+  IconfontDart(String dir, String buildDir, {String toHumpStr}) {
     this.dir = dir;
     this.buildDir = buildDir;
-    
-    this.init();
+    this.toHumpStr = toHumpStr;
+
+    this._init();
   }
 
-  init() {
+  _init() {
     List fontClassName;
     List unicode;
     // 读取demo_index.html 获取unicode
@@ -29,25 +34,26 @@ class IconfontDart {
       div.forEach((val) {
         // font-class
         if(val.className.indexOf('font-class') > -1) {
-          var li = getLi(val);
-          fontClassName = getSpan(li, type: 'classname');
+          var li = _getLi(val);
+          fontClassName = _getSpan(li, type: 'classname');
         }
 
         // unicode dom
         if(val.className.indexOf('unicode') > -1) {
-          var li = getLi(val);
-          unicode = getSpan(li, type: 'unicode');
+          var li = _getLi(val);
+          unicode = _getSpan(li, type: 'unicode');
         }
       });
-      writeIcon(fontClassName, unicode);
+      _writeIcon(fontClassName, unicode);
     });
   }
+
   // 写入文件
-  writeIcon(List classname, List unicode) {
+  _writeIcon(List classname, List unicode) {
     String str = "";
 
     classname.asMap().forEach((index, val){
-      str = '$str${formatIcon(val, unicode[index])}';
+      str = '$str${_formatIcon(val, unicode[index])}';
     });
 
     File(buildDir).writeAsString("import 'package:flutter/material.dart';\n\n$str");
@@ -55,22 +61,26 @@ class IconfontDart {
   }
 
   // 格式化icon代码
-  formatIcon(classname, unicode) {
-    return  """Icon $classname() => Icon(
+  _formatIcon(classname, unicode) {
+    return  """Icon $classname({num size = 18, Color color}) => Icon(
   IconData($unicode, fontFamily: 'iconfont'),
-  size: 18,
+  size: size,
+  color: color,
 );\n\n""";  
   }
 
+
   /// 获取 unicode || classname
+  /// 
   /// @type  classname || unicode
-  getSpan(doc, {String type}) {
+  _getSpan(doc, {String type}) {
     List<String> arr = List<String>();
     doc.forEach((val) {
       var div = val.getElementsByClassName('code-name')[0];
       var str = div.innerHtml.toString();
       if(type == 'classname') { // classname
-        arr.add(str.replaceAll(new RegExp('\\.|\\n|\\s|\\-'), ''));
+        var span = str.replaceAll(new RegExp('\\.|\\n|\\s'), '');
+        toHumpStr == null || toHumpStr.isEmpty ? arr.add(span.replaceAll(RegExp('\\-'), '')) : arr.add(_toHump(span, toHumpStr));
       } else { // unicode
         arr.add('0${str.split('#')[1].replaceAll(';', '')}');
       }
@@ -79,12 +89,25 @@ class IconfontDart {
     return arr;
   }
 
-  // 获取li
-  getLi(doc) {
+  /// 获取li
+  _getLi(doc) {
     var ul = doc.getElementsByClassName('icon_lists')[0];
     var li = ul.getElementsByTagName('li');
 
     return li;
+  }
+
+  /// 转换成驼峰
+  /// 
+  /// @str  需要转换的字符串
+  /// @chart 下划线转换成驼峰  '_'
+  _toHump(String str, String char) {
+    var s = str.replaceAllMapped(
+      new RegExp('$char(\\w)'),(Match m) {
+        return m[1].toUpperCase();
+      }
+    );
+    return s;
   }
 }
 
