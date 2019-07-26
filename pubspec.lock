@@ -47,7 +47,7 @@ packages:
     source: sdk
     version: "0.0.0"
   html:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: html
       url: "https://pub.flutter-io.cn"

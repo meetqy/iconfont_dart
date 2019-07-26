@@ -1,8 +1,8 @@
 name: iconfont_dart
-description: A new Flutter package project.
-version: 0.0.1
-author:
-homepage:
+description: iconfont to dart. 根据iconfont生成对应的dart文件，使用的时候只需调用iconfont的classname.
+version: 0.0.3
+author: meetqy<meetqy@qq.com>
+homepage: https://github.com/meetqy/iconfont_dart
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -10,11 +10,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  html: ^0.14.0+2  
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  html: ^0.14.0+2  
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -1,39 +1,46 @@
 import 'dart:io';
 import 'package:html/parser.dart' show parse;
 
-String _dir = './assets/fonts/demo_index.html'; // iconfont中 demo_index.html目录
-String _buildDir = './index.dart'; // 生成文件路径
-
-void main() {
-  IconfontDart();
-}
-
 class IconfontDart {
+  String dir;
+  String buildDir;
 
-  IconfontDart() {
+  /// 根据iconfont自动生成对应的dart文件
+  /// 
+  /// @dir: iconfont中 demo_index.html目录
+  /// 
+  /// @buildDir: 生成dart文件路径
+  IconfontDart(String dir, String buildDir) {
+    this.dir = dir;
+    this.buildDir = buildDir;
+    
+    this.init();
+  }
+
+  init() {
     List fontClassName;
     List unicode;
     // 读取demo_index.html 获取unicode
-    File(_dir).readAsString()
-      .then((onValue){
-        var doc = parse(onValue);
-        var div = doc.getElementsByClassName('content');
-        // 遍历获取 unicode || classname
-        div.forEach((val) {
-          // font-class
-          if(val.className.indexOf('font-class') > -1) {
-            var li = getLi(val);
-            fontClassName = getSpan(li, type: 'classname');
-          }
+    File(dir).readAsString()
+    .then((onValue){
+      var doc = parse(onValue);
+      var div = doc.getElementsByClassName('content');
+      // 遍历获取 unicode || classname
+      div.forEach((val) {
+        // font-class
+        if(val.className.indexOf('font-class') > -1) {
+          var li = getLi(val);
+          fontClassName = getSpan(li, type: 'classname');
+        }
 
-          // unicode dom
-          if(val.className.indexOf('unicode') > -1) {
-            var li = getLi(val);
-            unicode = getSpan(li, type: 'unicode');
-          }
-        });
-        writeIcon(fontClassName, unicode);
+        // unicode dom
+        if(val.className.indexOf('unicode') > -1) {
+          var li = getLi(val);
+          unicode = getSpan(li, type: 'unicode');
+        }
       });
+      writeIcon(fontClassName, unicode);
+    });
   }
   // 写入文件
   writeIcon(List classname, List unicode) {
@@ -43,7 +50,7 @@ class IconfontDart {
       str = '$str${formatIcon(val, unicode[index])}';
     });
 
-    File(_buildDir).writeAsString("import 'package:flutter/material.dart';\n\n$str");
+    File(buildDir).writeAsString("import 'package:flutter/material.dart';\n\n$str");
 
   }
 
