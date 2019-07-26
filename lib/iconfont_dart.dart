@@ -57,9 +57,9 @@ class IconfontDart {
   // 格式化icon代码
   formatIcon(classname, unicode) {
     return  """Icon $classname() => Icon(
-    IconData($unicode, fontFamily: 'iconfont'),
-    size: 18,
-  );\n\n""";  
+  IconData($unicode, fontFamily: 'iconfont'),
+  size: 18,
+);\n\n""";  
   }
 
   /// 获取 unicode || classname

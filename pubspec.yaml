@@ -1,7 +1,7 @@
 name: iconfont_dart
-description: iconfont to dart. 根据iconfont生成对应的dart文件，使用的时候只需调用iconfont的classname.
-version: 0.0.3
-author: meetqy<meetqy@qq.com>
+description: iconfont to dart.Icon can be implemented by calling iconfont classname.
+version: 0.0.4
+author: meetqy<meetqy.com@gmail.com>
 homepage: https://github.com/meetqy/iconfont_dart
 
 environment:
