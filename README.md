@@ -1,6 +1,7 @@
 # iconfont_dart
 
 iconfont to dart.Icon can be implemented by calling iconfont classname.
+iconfont转dart。通过调用iconfont的classname即可返回Icon。
 
 ## 使用
 
@@ -19,7 +20,7 @@ main() {
 
 ## 生成dart文件预览
 
-![](./dart.png);
+![](./dart.png)
 
 
 
