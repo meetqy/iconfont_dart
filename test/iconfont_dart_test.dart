@@ -3,6 +3,6 @@ import 'package:iconfont_dart/iconfont_dart.dart';
 
 void main() {
   test('params', () {
-    IconFontDart('./', './a.dart');
+    IconfontDart('./', './a.dart');
   });
 }

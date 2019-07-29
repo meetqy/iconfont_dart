@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:html/parser.dart' show parse;
 
-class IconFontDart {
+class IconfontDart {
   String dir;
   String buildDir;
   String toHumpStr;
@@ -14,7 +14,7 @@ class IconFontDart {
   /// 
   /// @toHumpStr: 将classname替换为驼峰命名  eg: icon-name 转换 iconName 
   /// eg: icon-name => iconName  toHumpStr传入 '-'
-  IconFontDart(String dir, String buildDir, {String toHumpStr}) {
+  IconfontDart(String dir, String buildDir, {String toHumpStr}) {
     this.dir = dir;
     this.buildDir = buildDir;
     this.toHumpStr = toHumpStr;
@@ -62,7 +62,7 @@ class IconFontDart {
 
   // 格式化icon代码
   _formatIcon(classname, unicode) {
-    return  """Icon $classname({num size = 18, Color color}) => Icon(
+    return  """Icon $classname({double size = 18.0, Color color}) => Icon(
   IconData($unicode, fontFamily: 'iconfont'),
   size: size,
   color: color,
