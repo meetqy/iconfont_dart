@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:html/parser.dart' show parse;
 
-class IconfontDart {
+class IconFontDart {
   String dir;
   String buildDir;
   String toHumpStr;
@@ -14,7 +14,7 @@ class IconfontDart {
   /// 
   /// @toHumpStr: 将classname替换为驼峰命名  eg: icon-name 转换 iconName 
   /// eg: icon-name => iconName  toHumpStr传入 '-'
-  IconfontDart(String dir, String buildDir, {String toHumpStr}) {
+  IconFontDart(String dir, String buildDir, {String toHumpStr}) {
     this.dir = dir;
     this.buildDir = buildDir;
     this.toHumpStr = toHumpStr;
