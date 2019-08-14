@@ -1,10 +1,13 @@
 import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:html/parser.dart' show parse;
 
 class IconfontDart {
   String dir;
   String buildDir;
   String toHumpStr;
+  double defaultFontSize;
+  
 
   /// 根据iconfont自动生成对应的dart文件
   /// 
@@ -14,10 +17,13 @@ class IconfontDart {
   /// 
   /// @toHumpStr: 将classname替换为驼峰命名  eg: icon-name 转换 iconName 
   /// eg: icon-name => iconName  toHumpStr传入 '-'
-  IconfontDart(String dir, String buildDir, {String toHumpStr}) {
+  /// 
+  /// @fontSize: 默认的fontSize
+  IconfontDart(String dir, String buildDir, {String toHumpStr, double defaultFontSize}) {
     this.dir = dir;
     this.buildDir = buildDir;
     this.toHumpStr = toHumpStr;
+    this.defaultFontSize = defaultFontSize;
 
     this._init();
   }
@@ -62,7 +68,7 @@ class IconfontDart {
 
   // 格式化icon代码
   _formatIcon(classname, unicode) {
-    return  """Icon $classname({double size = 18.0, Color color}) => Icon(
+    return  """Icon $classname({double size = defaultFontSize, Color color}) => Icon(
   IconData($unicode, fontFamily: 'iconfont'),
   size: size,
   color: color,
