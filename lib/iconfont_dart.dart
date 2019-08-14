@@ -67,7 +67,7 @@ class IconfontDart {
 
   // 格式化icon代码
   _formatIcon(classname, unicode) {
-    return  """Icon $classname({double size = defaultFontSize, Color color}) => Icon(
+    return  """Icon $classname({double size = $defaultFontSize, Color color}) => Icon(
   IconData($unicode, fontFamily: 'iconfont'),
   size: size,
   color: color,
