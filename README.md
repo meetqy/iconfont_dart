@@ -1,7 +1,7 @@
 <!--
  * @Author: meetqy
  * @since: 2019-07-26 10:18:13
- * @lastTime: 2019-11-04 16:19:56
+ * @lastTime: 2019-11-04 16:26:49
  * @LastEditors: meetqy
  -->
 # iconfont_dart
@@ -12,7 +12,7 @@ iconfont转dart。通过调用iconfont的classname即可返回Icon。
 
 ## 生成dart文件预览
 
-<img src='./preview.png' width='1280'>
+![](./preview.png)
 
 ## 使用
 

@@ -1,9 +1,12 @@
 <!--
  * @Author: meetqy
  * @since: 2019-07-26 10:18:13
- * @lastTime: 2019-11-04 16:09:24
+ * @lastTime: 2019-11-04 16:27:51
  * @LastEditors: meetqy
  -->
+## 0.3.1
+- 更新预览图
+
 ## 0.3.0
 - 修改生成的文件，和flutter自带的Icons调用方式一致
 - 删除IconfontDart多余的参数，整理注释
