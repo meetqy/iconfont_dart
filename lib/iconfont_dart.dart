@@ -2,27 +2,21 @@ import 'dart:io';
 import 'package:html/parser.dart' show parse;
 
 class IconfontDart {
+  /// iconfont中 demo_index.html 所在路径
   String dir;
+  /// 生成dart文件路径
   String buildDir;
-  String toHumpStr;
-  double defaultFontSize;
+  /// 创建的类名 默认值：IconFonts
+  String className;
   
 
   /// 根据iconfont自动生成对应的dart文件
-  /// 
-  /// @dir: iconfont中 demo_index.html目录
-  /// 
-  /// @buildDir: 生成dart文件路径
-  /// 
-  /// @toHumpStr: 将classname替换为驼峰命名  eg: icon-name 转换 iconName 
-  /// eg: icon-name => iconName  toHumpStr传入 '-'
-  /// 
-  /// @fontSize: 默认的fontSize
-  IconfontDart(String dir, String buildDir, {String toHumpStr, double defaultFontSize}) {
+  IconfontDart(String dir, String buildDir, {
+    String className = 'IconFonts'
+  }) {
     this.dir = dir;
     this.buildDir = buildDir;
-    this.toHumpStr = toHumpStr;
-    this.defaultFontSize = defaultFontSize;
+    this.className = className;
 
     this._init();
   }
@@ -61,22 +55,21 @@ class IconfontDart {
       str = '$str${_formatIcon(val, unicode[index])}';
     });
 
-    File(buildDir).writeAsString("import 'package:flutter/material.dart';\n\n$str");
-
+    File(buildDir).writeAsString("""import 'package:flutter/material.dart';\n
+class $className {
+  $className._();
+$str
+}    
+""");
   }
 
-  // 格式化icon代码
+  /// 格式化icon代码
   _formatIcon(classname, unicode) {
-    return  """Icon $classname({double size = $defaultFontSize, Color color}) => Icon(
-  IconData($unicode, fontFamily: 'iconfont'),
-  size: size,
-  color: color,
-);\n\n""";  
+    return  """  static const IconData $classname = IconData($unicode, fontFamily: 'iconfont');\n""";  
   }
 
 
   /// 获取 unicode || classname
-  /// 
   /// @type  classname || unicode
   _getSpan(doc, {String type}) {
     List<String> arr = List<String>();
@@ -85,7 +78,7 @@ class IconfontDart {
       var str = div.innerHtml.toString();
       if(type == 'classname') { // classname
         var span = str.replaceAll(new RegExp('\\.|\\n|\\s'), '');
-        toHumpStr == null || toHumpStr.isEmpty ? arr.add(span.replaceAll(RegExp('\\-'), '')) : arr.add(_toHump(span, toHumpStr));
+        arr.add(span.replaceAll(RegExp('\\-'), '_'));
       } else { // unicode
         arr.add('0${str.split('#')[1].replaceAll(';', '')}');
       }
@@ -100,19 +93,6 @@ class IconfontDart {
     var li = ul.getElementsByTagName('li');
 
     return li;
-  }
-
-  /// 转换成驼峰
-  /// 
-  /// @str  需要转换的字符串
-  /// @chart 下划线转换成驼峰  '_'
-  _toHump(String str, String char) {
-    var s = str.replaceAllMapped(
-      new RegExp('$char(\\w)'),(Match m) {
-        return m[1].toUpperCase();
-      }
-    );
-    return s;
   }
 }
 

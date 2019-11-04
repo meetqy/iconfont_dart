@@ -3,6 +3,9 @@ import 'package:iconfont_dart/iconfont_dart.dart';
 
 void main() {
   test('params', () {
-    IconfontDart('./', './a.dart');
+    IconfontDart(
+      '../lib/assets/fonts/demo_index.html', 
+      './a.dart'
+    );
   });
 }
