@@ -1,14 +1,14 @@
 <!--
  * @Author: meetqy
  * @since: 2019-07-26 10:18:13
- * @lastTime: 2019-11-04 16:26:49
+ * @lastTime: 2019-11-04 16:34:39
  * @LastEditors: meetqy
  -->
 # iconfont_dart
 
-iconfont to dart.Icon can be implemented by calling iconfont classname.
+帮助你快速生成Icons
 
-iconfont转dart。通过调用iconfont的classname即可返回Icon。
+Help you generate icons quickly
 
 ## 生成dart文件预览
 
