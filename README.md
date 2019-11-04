@@ -1,7 +1,7 @@
 <!--
  * @Author: meetqy
  * @since: 2019-07-26 10:18:13
- * @lastTime: 2019-11-04 16:15:25
+ * @lastTime: 2019-11-04 16:19:56
  * @LastEditors: meetqy
  -->
 # iconfont_dart
@@ -30,9 +30,12 @@ main() {
 > 注意：通过 dart xxx.dart 执行生成dart文件
 
 ## 参数介绍
-- @dir: iconfont中 demo_index.html 目录
-- @buildDir: 生成dart文件路径
-- @className: 生成的类名
+
+参数 | 说明
+---- | ----
+dir | iconfont中 demo_index.html 目录
+buildDir | 生成dart文件路径
+className | 生成的类名
 
 ## 仓库地址
 
