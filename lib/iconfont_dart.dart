@@ -2,18 +2,8 @@ import 'dart:io';
 import 'package:html/parser.dart' show parse;
 
 class IconfontDart {
-  /// iconfont中 demo_index.html 所在路径
-  String dir;
-  /// 生成dart文件路径
-  String buildDir;
-  /// 创建的类名 默认值：IconFonts
-  String className;
-  
-
   /// 根据iconfont自动生成对应的dart文件
-  IconfontDart(String dir, String buildDir, {
-    String className = 'IconFonts'
-  }) {
+  IconfontDart(String dir, String buildDir, {String className = 'IconFonts'}) {
     this.dir = dir;
     this.buildDir = buildDir;
     this.className = className;
@@ -21,24 +11,32 @@ class IconfontDart {
     this._init();
   }
 
+  /// iconfont中 demo_index.html 所在路径
+  String dir;
+
+  /// 生成dart文件路径
+  String buildDir;
+
+  /// 创建的类名 默认值：IconFonts
+  String className;
+
   _init() {
     List fontClassName;
     List unicode;
     // 读取demo_index.html 获取unicode
-    File(dir).readAsString()
-    .then((onValue){
+    File(dir).readAsString().then((onValue) {
       var doc = parse(onValue);
       var div = doc.getElementsByClassName('content');
       // 遍历获取 unicode || classname
       div.forEach((val) {
         // font-class
-        if(val.className.indexOf('font-class') > -1) {
+        if (val.className.indexOf('font-class') > -1) {
           var li = _getLi(val);
           fontClassName = _getSpan(li, type: 'classname');
         }
 
         // unicode dom
-        if(val.className.indexOf('unicode') > -1) {
+        if (val.className.indexOf('unicode') > -1) {
           var li = _getLi(val);
           unicode = _getSpan(li, type: 'unicode');
         }
@@ -51,7 +49,7 @@ class IconfontDart {
   _writeIcon(List classname, List unicode) {
     String str = "";
 
-    classname.asMap().forEach((index, val){
+    classname.asMap().forEach((index, val) {
       str = '$str${_formatIcon(val, unicode[index])}';
     });
 
@@ -65,9 +63,8 @@ $str
 
   /// 格式化icon代码
   _formatIcon(classname, unicode) {
-    return  """  static const IconData $classname = IconData($unicode, fontFamily: 'iconfont');\n""";  
+    return """  static const IconData $classname = IconData($unicode, fontFamily: 'iconfont');\n""";
   }
-
 
   /// 获取 unicode || classname
   /// @type  classname || unicode
@@ -76,10 +73,12 @@ $str
     doc.forEach((val) {
       var div = val.getElementsByClassName('code-name')[0];
       var str = div.innerHtml.toString();
-      if(type == 'classname') { // classname
+      if (type == 'classname') {
+        // classname
         var span = str.replaceAll(new RegExp('\\.|\\n|\\s'), '');
         arr.add(span.replaceAll(RegExp('\\-'), '_'));
-      } else { // unicode
+      } else {
+        // unicode
         arr.add('0${str.split('#')[1].replaceAll(';', '')}');
       }
     });
@@ -95,4 +94,3 @@ $str
     return li;
   }
 }
-
