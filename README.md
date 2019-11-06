@@ -1,7 +1,7 @@
 <!--
  * @Author: meetqy
  * @since: 2019-07-26 10:18:13
- * @lastTime: 2019-11-06 12:08:46
+ * @lastTime: 2019-11-06 12:10:56
  * @LastEditors: meetqy
  -->
 
@@ -25,7 +25,7 @@ To import iconcont, you only need to compile it once to help you generate icons 
 
 ![](preview.png)
 
-## 使用说明
+## 使用
 
 ```dart
 main() {
